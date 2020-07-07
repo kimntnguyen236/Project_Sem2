@@ -13,22 +13,27 @@ import java.util.Vector;
  * @author ThienKim
  */
 public class PlayerInfo {
-    public String Name, Password, Avatar;
+    public String Name, Password, Avatar, Email, Phone, DOB;
     public int PlayerGem, PlayerScore, quesId;
     public Date PlayedDate;
 
     public PlayerInfo() {
     }
 
-    public PlayerInfo(String Name, String Password, String Avatar, int PlayerGem, int PlayerScore, int quesId, Date PlayedDate) {
+    public PlayerInfo(String Name, String Password, String Avatar, String Email, String Phone, String DOB, int PlayerGem, int PlayerScore, int quesId, Date PlayedDate) {
         this.Name = Name;
         this.Password = Password;
         this.Avatar = Avatar;
+        this.Email = Email;
+        this.Phone = Phone;
+        this.DOB = DOB;
         this.PlayerGem = PlayerGem;
         this.PlayerScore = PlayerScore;
         this.quesId = quesId;
         this.PlayedDate = PlayedDate;
     }
+
+    
 
     
     
@@ -37,6 +42,9 @@ public class PlayerInfo {
         v.add(Name);
         v.add(Password);
         v.add(Avatar);
+        v.add(Email);
+        v.add(Phone);
+        v.add(DOB);
         v.add(PlayerGem);
         v.add(PlayerScore);
         v.add(quesId);
@@ -44,8 +52,20 @@ public class PlayerInfo {
        return v;
     }
     
+    public String getEmail(){
+        return Email;
+    }
+    
     public String getName(){
         return Name;
+    }
+    
+    public String getPhone(){
+        return Phone;
+    }
+    
+    public String getDOB(){
+        return DOB;
     }
     
     public String getAvt(){
@@ -78,6 +98,18 @@ public class PlayerInfo {
     
     public void setAvt(String Avatar){
         this.Avatar = Avatar;
+    }
+    
+    public void setEmail(String Email){
+        this.Email = Email;
+    }
+    
+    public void setDOB(String DOB){
+        this.DOB = DOB;
+    }
+    
+    public void setPhone(String Phone){
+        this.Phone = Phone;
     }
     
     public void setPassword(String Password){

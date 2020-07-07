@@ -17,26 +17,24 @@ public class QA {
 //    }
     
     public String quesContent, ansContent;
-    public int quesId,ScenNo,quesGem,quesScore;
+    public int quesId,quesGem,quesScore;
 
     public QA() {
     }
 
-    public QA(String quesContent, String ansContent, int quesId, int ScenNo, int quesGem, int quesScore) {
+    public QA(String quesContent, String ansContent, int quesId, int quesGem, int quesScore) {
+        this.quesId = quesId;
         this.quesContent = quesContent;
         this.ansContent = ansContent;
-        this.quesId = quesId;
-        this.ScenNo = ScenNo;
         this.quesGem = quesGem;
         this.quesScore = quesScore;
     }
     
     public Vector toVector(){
         Vector v = new Vector();
+        v.add(quesId);
         v.add(quesContent);
         v.add(ansContent);
-        v.add(quesId);
-        v.add(ScenNo);
         v.add(quesGem);
         v.add(quesScore);
         return v;
@@ -50,9 +48,6 @@ public class QA {
     }
     public int getquesId(){
         return quesId;
-    }
-    public int getScenNo(){
-        return ScenNo;
     }
     public int getquesGem(){
         return quesGem;
@@ -68,9 +63,6 @@ public class QA {
     }
     public void setquesId(int quesId){
         this.quesId = quesId;
-    }
-    public void setScenNo(int ScenNo){
-        this.ScenNo = ScenNo;
     }
     public void setquesGem(int quesGem){
         this.quesGem = quesGem;

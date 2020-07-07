@@ -120,7 +120,7 @@ public final class Print_Player_Details extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Tài khoản", "Email", "ngày sinh", "Số điện thoại", "ngày tham gia"
+                "Tài khoản", "Email", "Ngày sinh", "Số điện thoại", " Ngày tham gia"
             }
         ));
         tbPlayers.setMinimumSize(new java.awt.Dimension(50, 0));

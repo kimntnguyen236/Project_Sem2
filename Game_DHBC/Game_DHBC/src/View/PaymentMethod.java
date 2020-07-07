@@ -11,6 +11,10 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,6 +29,7 @@ import javax.swing.JPanel;
 public class PaymentMethod extends javax.swing.JFrame implements ActionListener {
 
     private static JButton btnOK;
+
     public PaymentMethod() {
         initComponents();
         addItem();
@@ -50,11 +55,11 @@ public class PaymentMethod extends javax.swing.JFrame implements ActionListener 
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        cardnumber = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        name = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        cvv = new javax.swing.JTextField();
         year = new java.awt.Choice();
         month = new java.awt.Choice();
         jLabel7 = new javax.swing.JLabel();
@@ -79,26 +84,31 @@ public class PaymentMethod extends javax.swing.JFrame implements ActionListener 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("CARD NUMBER");
 
-        jTextField1.setBackground(new java.awt.Color(204, 102, 0));
-        jTextField1.setFont(new java.awt.Font("Tekton Pro", 1, 20)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setText("XXXX-XXXX-XXXX-XXXX");
-        jTextField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        cardnumber.setBackground(new java.awt.Color(204, 102, 0));
+        cardnumber.setFont(new java.awt.Font("Tekton Pro", 1, 20)); // NOI18N
+        cardnumber.setForeground(new java.awt.Color(255, 255, 255));
+        cardnumber.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        cardnumber.setText("XXXX-XXXX-XXXX-XXXX");
+        cardnumber.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        cardnumber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cardnumberActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tekton Pro", 1, 20)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("CARD HOLDER NAME");
 
-        jTextField2.setBackground(new java.awt.Color(204, 102, 0));
-        jTextField2.setFont(new java.awt.Font("Tekton Pro", 1, 24)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField2.setText("LOI BUU BUU");
-        jTextField2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        name.setBackground(new java.awt.Color(204, 102, 0));
+        name.setFont(new java.awt.Font("Tekton Pro", 1, 24)); // NOI18N
+        name.setForeground(new java.awt.Color(255, 255, 255));
+        name.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        name.setText("LOI BUU BUU");
+        name.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        name.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                nameActionPerformed(evt);
             }
         });
 
@@ -106,15 +116,15 @@ public class PaymentMethod extends javax.swing.JFrame implements ActionListener 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("CVV");
 
-        jTextField3.setBackground(new java.awt.Color(204, 102, 0));
-        jTextField3.setFont(new java.awt.Font("Tekton Pro", 1, 20)); // NOI18N
-        jTextField3.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField3.setText("XXX");
-        jTextField3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        cvv.setBackground(new java.awt.Color(204, 102, 0));
+        cvv.setFont(new java.awt.Font("Tekton Pro", 1, 20)); // NOI18N
+        cvv.setForeground(new java.awt.Color(255, 255, 255));
+        cvv.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        cvv.setText("XXX");
+        cvv.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        cvv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                cvvActionPerformed(evt);
             }
         });
 
@@ -148,7 +158,7 @@ public class PaymentMethod extends javax.swing.JFrame implements ActionListener 
                 .addGap(30, 30, 30)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jTextField2)
+                        .addComponent(name)
                         .addGap(80, 80, 80))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,11 +170,11 @@ public class PaymentMethod extends javax.swing.JFrame implements ActionListener 
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cardnumber, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3)
+                            .addComponent(cvv)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -190,12 +200,12 @@ public class PaymentMethod extends javax.swing.JFrame implements ActionListener 
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cardnumber, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cvv, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -292,36 +302,63 @@ public class PaymentMethod extends javax.swing.JFrame implements ActionListener 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+        Pattern Pn = Pattern.compile("[a-zA-Z ]{2,50}");
+        Matcher mn = Pn.matcher(name.getText().trim());
+        if (!mn.matches()) {
+            JOptionPane.showMessageDialog(this, "Tên không hợp lệ. Tên không chứa số và kí tự đặc biệt.");
+            name.requestFocus();
+            name.setText(null);
+            return;
+        }
+    }//GEN-LAST:event_nameActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    private void cvvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cvvActionPerformed
+        Pattern Pn = Pattern.compile("[0-9]{3}");
+        Matcher mn = Pn.matcher(cvv.getText().trim());
+        if (!mn.matches()) {
+            JOptionPane.showMessageDialog(this, "Số CVV không hợp lệ. \n Số CVV có dạng XXX.");
+            cvv.requestFocus();
+            cvv.setText(null);
+            return;
+        }
+    }//GEN-LAST:event_cvvActionPerformed
 
     private void btnAddPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPaymentActionPerformed
-//        JFrame fr = new JFrame("Notice");
-//        JPanel panel = new JPanel(); 
-//        fr.setSize(500, 200);
-//        fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        fr.setLocationRelativeTo(this);
-//        fr.add(panel);
-//     
-//        panel.setLayout(null);
-//
-//        JLabel lb = new JLabel("Chúc Mừng!!! Bạn đã cập nhật thông tin thanh toán Thành Công!!!");
-//        panel.add(lb);
-//        lb.setBounds(50, 50, 400, 50);
-//
-//        JButton btnOK = new JButton("OK");
-//        btnOK.setBounds(200, 110, 80, 40);
-//        btnOK.addActionListener(new PaymentMethod() );
-//        panel.add(btnOK);
-//         
-//        fr.setVisible(true);
-   JOptionPane.showMessageDialog(this, "                      CHÚC MỪNG!!!\n Bạn đã cập nhật thông tin thanh toán Thành Công!!!");
-
+        Pattern Pn = Pattern.compile("[a-zA-Z ]{2,50}");
+        Matcher mn = Pn.matcher(name.getText().trim());
+        if (!mn.matches()) {
+            JOptionPane.showMessageDialog(this, "Tên không hợp lệ. Tên không chứa số và kí tự đặc biệt.");
+            name.requestFocus();
+            name.setText(null);
+            return;
+        }
+        
+        Pattern Pn1 = Pattern.compile("[0-9]{3}");
+        Matcher mn1 = Pn1.matcher(cvv.getText().trim());
+        if (!mn1.matches()) {
+            JOptionPane.showMessageDialog(this, "Số CVV không hợp lệ. \n Số CVV có dạng XXX.");
+            cvv.requestFocus();
+            cvv.setText(null);
+            return;
+        }
+        
+        Pattern Pn2 = Pattern.compile("[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}");
+        Matcher mn2 = Pn2.matcher(cardnumber.getText().trim());
+        if (!mn2.matches()) {
+            JOptionPane.showMessageDialog(this, "Số thẻ không hợp lệ. \n Số thẻ có dạng XXXX-XXXX-XXXX-XXXX.");
+            cardnumber.requestFocus();
+            cardnumber.setText(null);
+            return;
+        }
+        
+        if ((month.getSelectedItem() == "JAN") || (month.getSelectedItem() == "FEB") || (month.getSelectedItem() == "TUE") || (month.getSelectedItem() == "WED") || (month.getSelectedItem() == "MAY") || (month.getSelectedItem() == "JUN") && (year.getSelectedIndex() == 2020)) {
+            JOptionPane.showMessageDialog(this, "The het han su dung");
+            return;
+        }
+        
+        JOptionPane.showMessageDialog(this, "                      CHÚC MỪNG!!!\n Bạn đã cập nhật thông tin thanh toán Thành Công!!!");
 
     }//GEN-LAST:event_btnAddPaymentActionPerformed
 
@@ -331,16 +368,19 @@ public class PaymentMethod extends javax.swing.JFrame implements ActionListener 
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.dispose();
-
-
     }//GEN-LAST:event_btnGoBackActionPerformed
 
-  //  private void btnOKActionPerformed(java.awt.event.ActionEvent evt){}
-       
-     
-    
-    
-    
+    private void cardnumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardnumberActionPerformed
+        Pattern Pn = Pattern.compile("[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}");
+        Matcher mn = Pn.matcher(cardnumber.getText().trim());
+        if (!mn.matches()) {
+            JOptionPane.showMessageDialog(this, "Số thẻ không hợp lệ. \n Số thẻ có dạng XXXX-XXXX-XXXX-XXXX.");
+            cardnumber.requestFocus();
+            cardnumber.setText(null);
+            return;
+        }
+    }//GEN-LAST:event_cardnumberActionPerformed
+
     public void addItem() {
 
         month.addItem("JAN");
@@ -412,6 +452,8 @@ public class PaymentMethod extends javax.swing.JFrame implements ActionListener 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddPayment;
     private javax.swing.JButton btnGoBack;
+    private javax.swing.JTextField cardnumber;
+    private javax.swing.JTextField cvv;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -422,18 +464,13 @@ public class PaymentMethod extends javax.swing.JFrame implements ActionListener 
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private java.awt.Choice month;
+    private javax.swing.JTextField name;
     private java.awt.Choice year;
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void actionPerformed(ActionEvent e) {        
-    
-    
-        }
+    public void actionPerformed(ActionEvent e) {
+
     }
-
-
+}

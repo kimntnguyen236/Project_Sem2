@@ -5,21 +5,47 @@
  */
 package View;
 
+import DBModels.GamePlayInfoDAO;
+import DBEntities.GamePlayInfo;
+import Sound.Sound;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
-/**
- *
- * @author LENOVO
- */
-public class GamePlay_Info extends javax.swing.JFrame {
-
-    /**
-     * Creates new form GamePlay_Info
-     */
+public final class GamePlay_Info extends javax.swing.JFrame {
+String username = "", password = "";
+    DefaultTableModel model1;
+    List<GamePlayInfo> ds = new ArrayList<>();
+    TableRowSorter<TableModel> sorter;
+     Sound sound = new Sound();
+     static boolean Active= false;
     public GamePlay_Info() {
         initComponents();
+        model1 = (DefaultTableModel) tbGamePlayInfo.getModel();
+        ShowtbGamePlayInfo();
     }
-
+public void active(){
+    Active=true;
+}
+    public void ShowtbGamePlayInfo() {
+        ds = new GamePlayInfoDAO().getList();
+        ds.forEach((tem) -> {
+            model1.addRow(tem.toVector());
+        });
+    }
+    
+    public void getAdmin(String user, String pass) {
+        username = user;
+        password = pass;
+        jAdmin.setText("Tài khoản: " + username);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,16 +56,13 @@ public class GamePlay_Info extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLb_Close = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        tbGamePlayInfo = new javax.swing.JTable();
+        btnSearch = new javax.swing.JButton();
+        txtSearch = new javax.swing.JTextField();
+        btnCancel = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jAdmin = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -48,31 +71,7 @@ public class GamePlay_Info extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLb_Close.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLb_Close.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/close1_window_48px.png"))); // NOI18N
-        jLb_Close.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLb_CloseMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLb_CloseMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLb_CloseMouseExited(evt);
-            }
-        });
-        jPanel2.add(jLb_Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 0, 40, 40));
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setText("GamePlayInfo page");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 200, 40));
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 40));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbGamePlayInfo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -80,31 +79,57 @@ public class GamePlay_Info extends javax.swing.JFrame {
                 "PlayerID", "quesID", "PlayedDate", "PlayerScore", "PlayerGem"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbGamePlayInfo);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 860, 170));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 860, 360));
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search_48px.png"))); // NOI18N
-        jButton1.setText("Search");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 160, 130, 40));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, 510, 40));
+        btnSearch.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search_48px.png"))); // NOI18N
+        btnSearch.setText("Search");
+        btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSearchMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSearchMouseExited(evt);
+            }
+        });
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 160, 130, 40));
+        jPanel1.add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, 510, 40));
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/print_48px.png"))); // NOI18N
-        jButton3.setText("Print");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 460, 180, 60));
-
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cancel_48px.png"))); // NOI18N
-        jButton2.setText("Cancel");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 460, 180, 60));
+        btnCancel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cancel_48px.png"))); // NOI18N
+        btnCancel.setText("Cancel");
+        btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCancelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCancelMouseExited(evt);
+            }
+        });
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 650, 180, 60));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("GamePlay Information");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 960, 40));
+        jLabel1.setText("Thông tin người chơi game");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, 510, 40));
+
+        jAdmin.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jAdmin.setForeground(new java.awt.Color(255, 255, 255));
+        jAdmin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(jAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -114,29 +139,65 @@ public class GamePlay_Info extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLb_CloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLb_CloseMouseClicked
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_jLb_CloseMouseClicked
+        sound.playMusic("./src/Sound/click2.wav");
+        if (txtSearch.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Vui long nhập từ khóa muốn tìm kiếm....");
+            txtSearch.requestFocus();
+        } else {
+            sorter = (TableRowSorter<TableModel>) tbGamePlayInfo.getRowSorter();
+            //  sorter.setRowFilter(RowFilter.regexFilter(txtSearch.getText(), 0));
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtSearch.getText()));
+        }
+    }//GEN-LAST:event_btnSearchActionPerformed
 
-    private void jLb_CloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLb_CloseMouseEntered
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
-        ImageIcon close = new ImageIcon("./src/images/close_window_48px.png");
-        jLb_Close.setIcon(close);
-    }//GEN-LAST:event_jLb_CloseMouseEntered
+        Admin_page rgf = new Admin_page();
+        rgf.setVisible(true);
+        rgf.pack();
+        rgf.setLocationRelativeTo(null);
+        rgf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.dispose();
+        rgf.getAdmin(username,password);
+    }//GEN-LAST:event_btnCancelActionPerformed
 
-    private void jLb_CloseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLb_CloseMouseExited
+    private void btnSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseEntered
         // TODO add your handling code here:
-        ImageIcon close = new ImageIcon("./src/images/close1_window_48px.png");
-        jLb_Close.setIcon(close);
-    }//GEN-LAST:event_jLb_CloseMouseExited
+        ImageIcon close = new ImageIcon("./src/images/search-icon.png");
+          sound.playMusic("./src/Sound/click2.wav");
+        btnSearch.setIcon(close);
+        btnSearch.setBackground(Color.black);
+    }//GEN-LAST:event_btnSearchMouseEntered
+
+    private void btnSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseExited
+        // TODO add your handling code here:
+        ImageIcon close = new ImageIcon("./src/images/search_48px.png");
+        btnSearch.setIcon(close);
+        btnSearch.setBackground(new Color(51, 51, 51));
+    }//GEN-LAST:event_btnSearchMouseExited
+
+    private void btnCancelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseEntered
+        // TODO add your handling code here:
+        ImageIcon close = new ImageIcon("./src/images/cancel2.png");
+        btnCancel.setIcon(close);
+        btnCancel.setBackground(Color.black);
+    }//GEN-LAST:event_btnCancelMouseEntered
+
+    private void btnCancelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseExited
+        // TODO add your handling code here:
+        ImageIcon close = new ImageIcon("./src/images/cancel_48px.png");
+        btnCancel.setIcon(close);
+        btnCancel.setBackground(new Color(51, 51, 51));
+    }//GEN-LAST:event_btnCancelMouseExited
 
     /**
      * @param args the command line arguments
@@ -170,21 +231,19 @@ public class GamePlay_Info extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GamePlay_Info().setVisible(true);
+                new Login().setVisible(false);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnSearch;
+    private javax.swing.JLabel jAdmin;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLb_Close;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tbGamePlayInfo;
+    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }

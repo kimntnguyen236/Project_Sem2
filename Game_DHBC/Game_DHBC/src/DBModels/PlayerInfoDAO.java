@@ -21,7 +21,7 @@ public class PlayerInfoDAO {
         PlayerInfo pl = null;
         Connection cn = LoginDatabase.getConnect();
         try {
-            String sql = "select Players.PlayerID, Players.PlayerPassword, GamePlayInfo.quesId,GamePlayInfo.PlayerGem, GamePlayInfo.PlayerScore, GamePlayInfo.PlayedDate from GamePlayInfo\n"
+            String sql = "select Players.PlayerID, Players.PlayerPassword, Players.PlayerEmail,Players.PlayerDOB,Players.PlayerPhone, GamePlayInfo.quesId,GamePlayInfo.PlayerGem, GamePlayInfo.PlayerScore, GamePlayInfo.PlayedDate from GamePlayInfo\n"
                     + "join Players\n"
                     + "on GamePlayInfo.PlayerID = Players.PlayerID";
             Statement sta = cn.createStatement();
@@ -31,10 +31,13 @@ public class PlayerInfoDAO {
                 pl = new PlayerInfo();
                 pl.setName(rs.getString(1));
                 pl.setPassword(rs.getString(2));
-                pl.setquesId(rs.getInt(3));
-                pl.setPlayerGem(rs.getInt(4));
-                pl.setPlayerScore(rs.getInt(5));
-                pl.setPlayedDate(rs.getDate(6));
+                pl.setEmail(rs.getString(3));
+                pl.setDOB(rs.getString(4));
+                pl.setPhone(rs.getString(5));
+                pl.setquesId(rs.getInt(6));
+                pl.setPlayerGem(rs.getInt(7));
+                pl.setPlayerScore(rs.getInt(8));
+                pl.setPlayedDate(rs.getDate(9));
                 ds.add(pl);
             }
             sta.close();

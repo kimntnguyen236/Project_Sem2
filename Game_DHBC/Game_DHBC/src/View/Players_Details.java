@@ -25,20 +25,26 @@ import javax.swing.table.TableRowSorter;
  * @author LENOVO
  */
 public final class Players_Details extends javax.swing.JFrame {
+
     String userName, Password;
+    String user;
+    String pass;
     DefaultTableModel model1;
     List<Player> ds = new ArrayList<>();
     TableRowSorter<TableModel> sorter;
-     Sound sound = new Sound();
-static boolean Active= false;
+    Sound sound = new Sound();
+    static boolean Active = false;
+
     public Players_Details() {
         initComponents();
         model1 = (DefaultTableModel) tbPlayer.getModel();
         ShowtbPlayer();
     }
-public void active(){
-    Active=true;
-}
+
+    public void active() {
+        Active = true;
+    }
+
     public void ShowtbPlayer() {
         ds = new PlayerDAO().getList();
         ds.forEach((tem) -> {
@@ -49,7 +55,7 @@ public void active(){
     public void getPlayer(String user, String pass) {
         userName = user;
         Password = pass;
-        jlbAdmin.setText(user);
+        jlbAdmin.setText("Tài khoản: " + user);
     }
 
     @SuppressWarnings("unchecked")
@@ -57,14 +63,11 @@ public void active(){
     private void initComponents() {
 
         jPanel4 = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jLb_Close = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbPlayer = new javax.swing.JTable();
         txtSearch = new javax.swing.JTextField();
         bntCancel = new javax.swing.JButton();
-        bntPrint = new javax.swing.JButton();
+        bntDetail = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         bntsearch = new javax.swing.JButton();
         jlbAdmin = new javax.swing.JLabel();
@@ -76,30 +79,6 @@ public void active(){
 
         jPanel4.setBackground(new java.awt.Color(0, 153, 153));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLb_Close.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLb_Close.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/close1_window_48px.png"))); // NOI18N
-        jLb_Close.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLb_CloseMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLb_CloseMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLb_CloseMouseExited(evt);
-            }
-        });
-        jPanel1.add(jLb_Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 0, 40, 40));
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setText("Players Details page");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 200, 40));
-
-        jPanel4.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 40));
 
         tbPlayer.setAutoCreateRowSorter(true);
         tbPlayer.setModel(new javax.swing.table.DefaultTableModel(
@@ -120,7 +99,7 @@ public void active(){
             tbPlayer.getColumnModel().getColumn(4).setPreferredWidth(80);
         }
 
-        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 890, 210));
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 930, 390));
         jPanel4.add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 510, 40));
 
         bntCancel.setBackground(new java.awt.Color(51, 51, 51));
@@ -142,28 +121,28 @@ public void active(){
                 bntCancelActionPerformed(evt);
             }
         });
-        jPanel4.add(bntCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 450, 180, 60));
+        jPanel4.add(bntCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 640, 170, 60));
 
-        bntPrint.setBackground(new java.awt.Color(51, 51, 51));
-        bntPrint.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        bntPrint.setForeground(new java.awt.Color(255, 255, 255));
-        bntPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/print_48px.png"))); // NOI18N
-        bntPrint.setText("Print");
-        bntPrint.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bntPrint.addMouseListener(new java.awt.event.MouseAdapter() {
+        bntDetail.setBackground(new java.awt.Color(51, 51, 51));
+        bntDetail.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        bntDetail.setForeground(new java.awt.Color(255, 255, 255));
+        bntDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_edit_property_50px.png"))); // NOI18N
+        bntDetail.setText("Xem Chi Tiết");
+        bntDetail.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bntDetail.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                bntPrintMouseEntered(evt);
+                bntDetailMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                bntPrintMouseExited(evt);
+                bntDetailMouseExited(evt);
             }
         });
-        bntPrint.addActionListener(new java.awt.event.ActionListener() {
+        bntDetail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bntPrintActionPerformed(evt);
+                bntDetailActionPerformed(evt);
             }
         });
-        jPanel4.add(bntPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 450, 180, 60));
+        jPanel4.add(bntDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 640, 210, 60));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -194,34 +173,17 @@ public void active(){
 
         jlbAdmin.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jlbAdmin.setForeground(new java.awt.Color(255, 255, 51));
-        jPanel4.add(jlbAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 180, 30));
+        jPanel4.add(jlbAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 40));
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 580));
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 730));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLb_CloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLb_CloseMouseClicked
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_jLb_CloseMouseClicked
-
-    private void jLb_CloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLb_CloseMouseEntered
-        // TODO add your handling code here:
-        ImageIcon close = new ImageIcon("./src/images/close_window_48px.png");
-        jLb_Close.setIcon(close);
-    }//GEN-LAST:event_jLb_CloseMouseEntered
-
-    private void jLb_CloseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLb_CloseMouseExited
-        // TODO add your handling code here:
-        ImageIcon close = new ImageIcon("./src/images/close1_window_48px.png");
-        jLb_Close.setIcon(close);
-    }//GEN-LAST:event_jLb_CloseMouseExited
-
     private void bntsearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntsearchActionPerformed
         // TODO add your handling code here:
-          sound.playMusic("./src/Sound/click2.wav");
+        sound.playMusic("./src/Sound/click2.wav");
         if (txtSearch.getText().trim().length() == 0) {
             JOptionPane.showMessageDialog(this, "Vui long nhập từ khóa muốn tìm kiếm....");
             txtSearch.requestFocus();
@@ -232,9 +194,9 @@ public void active(){
         }
     }//GEN-LAST:event_bntsearchActionPerformed
 
-    private void bntPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntPrintActionPerformed
+    private void bntDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntDetailActionPerformed
         // TODO add your handling code here:
-          sound.playMusic("./src/Sound/click2.wav");
+        sound.playMusic("./src/Sound/click2.wav");
         Print_Player_Details rgf = new Print_Player_Details();
         rgf.setVisible(true);
         rgf.pack();
@@ -243,11 +205,11 @@ public void active(){
         this.dispose();
         rgf.getPrintPlayer(userName, Password);
 
-    }//GEN-LAST:event_bntPrintActionPerformed
+    }//GEN-LAST:event_bntDetailActionPerformed
 
     private void bntCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntCancelActionPerformed
         // TODO add your handling code here:
-          sound.playMusic("./src/Sound/click2.wav");
+        sound.playMusic("./src/Sound/click2.wav");
         Admin_page rgf = new Admin_page();
         rgf.setVisible(true);
         rgf.pack();
@@ -259,7 +221,7 @@ public void active(){
 
     private void bntsearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntsearchMouseEntered
         ImageIcon close = new ImageIcon("./src/images/search-icon.png");
-          sound.playMusic("./src/Sound/click2.wav");
+        sound.playMusic("./src/Sound/click2.wav");
         bntsearch.setIcon(close);
         bntsearch.setBackground(Color.black);
     }//GEN-LAST:event_bntsearchMouseEntered
@@ -271,18 +233,18 @@ public void active(){
         bntsearch.setBackground(new Color(51, 51, 51));
     }//GEN-LAST:event_bntsearchMouseExited
 
-    private void bntPrintMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntPrintMouseEntered
-        ImageIcon close = new ImageIcon("./src/images/send_to_printer_48px.png");
-        bntPrint.setIcon(close);
-        bntPrint.setBackground(Color.black);
-    }//GEN-LAST:event_bntPrintMouseEntered
+    private void bntDetailMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntDetailMouseEntered
+        ImageIcon close = new ImageIcon("./src/images/icons8_edit_property_80px.png");
+        bntDetail.setIcon(close);
+        bntDetail.setBackground(Color.black);
+    }//GEN-LAST:event_bntDetailMouseEntered
 
-    private void bntPrintMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntPrintMouseExited
+    private void bntDetailMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntDetailMouseExited
         // TODO add your handling code here:
-        ImageIcon close = new ImageIcon("./src/images/print_48px.png");
-        bntPrint.setIcon(close);
-        bntPrint.setBackground(new Color(51, 51, 51));
-    }//GEN-LAST:event_bntPrintMouseExited
+        ImageIcon close = new ImageIcon("./src/images/icons8_edit_property_80px.png");
+        bntDetail.setIcon(close);
+        bntDetail.setBackground(new Color(51, 51, 51));
+    }//GEN-LAST:event_bntDetailMouseExited
 
     private void bntCancelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntCancelMouseEntered
         // TODO add your handling code here:
@@ -329,26 +291,23 @@ public void active(){
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                                    if(Active){
-                   new Players_Details().setVisible(true);
-                }
-                else{
-                    JOptionPane.showMessageDialog(null,"Bạn cần phải đăng nhập trước khi mở trang này!!!");
+                if (Active) {
+                    new Players_Details().setVisible(true);
+                    new Login().setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Bạn cần phải đăng nhập trước khi mở trang này!!!");
                     new Login().setVisible(true);
                 }
-               
+
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntCancel;
-    private javax.swing.JButton bntPrint;
+    private javax.swing.JButton bntDetail;
     private javax.swing.JButton bntsearch;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLb_Close;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel jlbAdmin;

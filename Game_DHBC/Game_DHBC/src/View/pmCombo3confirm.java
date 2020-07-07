@@ -5,9 +5,13 @@
  */
 package View;
 
+import DBEntities.GamePlayInfo;
+import DBModels.GamePlayInfoDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,9 +19,8 @@ import javax.swing.JFrame;
  */
 public class pmCombo3confirm extends javax.swing.JFrame implements ActionListener {
 
-    /**
-     * Creates new form pmCombo1confirm
-     */
+   ArrayList<GamePlayInfo> gameinfo;
+   
     public pmCombo3confirm() {
         initComponents();
         this.btnTouchPM.addActionListener(this);
@@ -77,6 +80,11 @@ public class pmCombo3confirm extends javax.swing.JFrame implements ActionListene
         btnOK.setText("Xác Nhận");
         btnOK.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white));
         btnOK.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOKActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 260, 160, 50));
 
         btnCancel.setBackground(new java.awt.Color(255, 255, 255));
@@ -128,6 +136,7 @@ public class pmCombo3confirm extends javax.swing.JFrame implements ActionListene
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -137,6 +146,27 @@ public class pmCombo3confirm extends javax.swing.JFrame implements ActionListene
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
+        // TODO add your handling code here:
+        gameinfo = new GamePlayInfoDAO().getList();
+        int gem = 0;
+        String name;
+        for (GamePlayInfo item : gameinfo) {
+            if (item.getPlayerID().equals("a")) {
+                gem = item.getPlayerGem();
+                name = item.PlayerID;
+                GamePlayInfoDAO.updateGem(gem + 150, name);
+                JOptionPane.showMessageDialog(this, "Tài Khoản của bạn đã được nạp 150 Gem thành công.");
+                CuaHangGem CHG = new CuaHangGem();
+                CHG.showgem();
+                CHG.setVisible(true);
+                this.dispose();
+                break;
+                
+            }
+        }
+    }//GEN-LAST:event_btnOKActionPerformed
 
     /**
      * @param args the command line arguments
@@ -163,6 +193,30 @@ public class pmCombo3confirm extends javax.swing.JFrame implements ActionListene
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(pmCombo3confirm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

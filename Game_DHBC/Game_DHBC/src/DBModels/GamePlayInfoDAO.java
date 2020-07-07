@@ -181,4 +181,53 @@ public class GamePlayInfoDAO {
         }
         return ds;
     }
+    
+    public static int updateGem(int gem, String name) {
+        int r = -1;
+        //1. tao ket noi tu ung dung java den sql server
+        Connection cn = MyLib.getConnect();
+        try {
+            //2. tao doi tuong statement chua linh update SQL
+            // PlayerInfo.,PlayerInfo.PlayerGem, PlayerInfo.PlayerScore, PlayerInfo.PlayedDate
+            String sql = "update GamePlayInfo set PlayerGem=? where PlayerID=?";
+            PreparedStatement pst = cn.prepareStatement(sql);
+            //3. set gia tri cho cac tham so ? trong linh update           
+           
+            pst.setInt(1, gem);
+           
+            pst.setString(2, name);
+            //4. thuc hinh linh update SQL
+         r = pst.executeUpdate();
+            //5. dong cac resources
+            pst.close();
+            cn.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return r;
+    }
+    
+    public static int insertPlayerID(GamePlayInfo gameplayinfo) {
+        int r = -1;
+
+        //1. Tao ket noi tu ung dung java den sql server
+        Connection cn = LoginDatabase.getConnect();
+        //2.tao doi tuong Statement chua ling sql server
+
+        try {
+            String sql = "insert GamePlayInfo(PlayerID) values(?)";
+            PreparedStatement pst = cn.prepareStatement(sql);
+            //set gia tri cho cac tham so
+
+            pst.setString(1, gameplayinfo.getPlayerID());
+            r = pst.executeUpdate();
+            //5.dong cac resourses
+            pst.close();
+            cn.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return r;
+    }
 }

@@ -18,6 +18,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -164,6 +166,12 @@ public class HelpSupport_Player extends javax.swing.JFrame {
             }
         });
         jPanel1.add(bntpost, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 440, 200, 50));
+
+        txttitle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txttitleActionPerformed(evt);
+            }
+        });
         jPanel1.add(txttitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 340, 40));
 
         labelID1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -269,42 +277,77 @@ public class HelpSupport_Player extends javax.swing.JFrame {
 
     private void bntsentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntsentActionPerformed
         Connection cn = LoginDatabase.getConnect();
-        boolean check= true;
-        if( txttitle.getText().trim().equals("")){
-              JOptionPane.showMessageDialog(null, "Tiêu đề không được để trống!!!"); 
-              check =false;
-              return;
+        boolean check = true;
+//        if (txttitle.getText().trim().equals("")) {
+//            JOptionPane.showMessageDialog(null, "Tiêu đề không được để trống!!!");
+//            check = false;
+//            return;
+//        }
+        if (txtmessages.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Nội dung không được để trống!!!");
+            check = false;
+            return;
         }
-      if( txtmessages.getText().trim().equals("")){
-              JOptionPane.showMessageDialog(null, "Nội dung không được để trống!!!"); 
-              check =false;
-              return;
+
+//        Pattern Pn = Pattern.compile("^[a-zA-Z0-9 -_@]{1,50}");
+//        Matcher mn = Pn.matcher(txttitle.getText().trim());
+//        if (!mn.matches()) {
+//            JOptionPane.showMessageDialog(this, "Tiêu đề không được quá 50 kí tự. \n Vui lòng nhập lại");
+//            txttitle.requestFocus();
+//            txttitle.setText(null);
+//            return;
+//        }
+
+//        Pattern Pn1 = Pattern.compile("^{1,500}");
+//        Matcher mn1 = Pn1.matcher(txtmessages.getText().trim());
+//        if (!mn1.matches()) {
+//            JOptionPane.showMessageDialog(this, "Nội dung không được quá 500 kí tự. \n Vui lòng nhập lại");
+//            txtmessages.requestFocus();
+//            txtmessages.setText(null);
+//            return;
+//        }
+        if (check) {
+            try {
+                String sql = "insert into HelpSupport (PlayerID,CaseTitle,Messages,Images) values(?,?,?,?)";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                //set gia tri cho cac tham so
+                pst.setString(1, user);
+                pst.setString(2, txttitle.getText());
+                pst.setString(3, txtmessages.getText());
+                pst.setBytes(4, picture);
+                pst.executeUpdate();
+                pst.close();
+                cn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            JOptionPane.showMessageDialog(null, "Gửi thành công. \n Cảm ơn bạn đã gửi góp ý cho chúng tôi! ");
         }
-      if(check){
-                  try {
-            String sql = "insert into HelpSupport (PlayerID,CaseTitle,Messages,Images) values(?,?,?,?)";
-            PreparedStatement pst = cn.prepareStatement(sql);
-            //set gia tri cho cac tham so
-            pst.setString(1, user);
-            pst.setString(2, txttitle.getText());
-            pst.setString(3, txtmessages.getText());
-            pst.setBytes(4, picture);
-            pst.executeUpdate();
-            pst.close();
-            cn.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-                   JOptionPane.showMessageDialog(null, "Gửi thành công!!!"); 
-      }
 
     }//GEN-LAST:event_bntsentActionPerformed
 
     private void txtmessagesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtmessagesKeyPressed
+        boolean check = true;
         int count = this.txtmessages.getText().length();
         this.lbCount.setText((count + 1) + "/500");
         if (count == 0 && count <= 500) {
             this.lbCount.setText(0 + "/500");
+        }
+        if (txtmessages.getText().length() > 500) {
+            txtmessages.setText(txtmessages.getText().substring(0, 500));
+        }
+        Pattern Pn1 = Pattern.compile("^{1,500}");
+        Matcher mn1 = Pn1.matcher(txtmessages.getText().trim());
+        if (!mn1.matches()) {
+            JOptionPane.showMessageDialog(this, "Nội dung không được quá 500 kí tự. \n Vui lòng nhập lại");
+            txtmessages.requestFocus();
+            txtmessages.setText(null);
+            return;
+        }
+        if (txtmessages.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Nội dung không được để trống!!!");
+            check = false;
+            return;
         }
     }//GEN-LAST:event_txtmessagesKeyPressed
 
@@ -312,6 +355,24 @@ public class HelpSupport_Player extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_bntcancelMouseClicked
+
+    private void txttitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttitleActionPerformed
+        // TODO add your handling code here:
+        boolean check = true;
+        if (txttitle.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Tiêu đề không được để trống!!!");
+            check = false;
+            return;
+        }
+        Pattern Pn = Pattern.compile("^[a-zA-Z0-9 -_@]{1,50}");
+        Matcher mn = Pn.matcher(txttitle.getText().trim());
+        if (!mn.matches()) {
+            JOptionPane.showMessageDialog(this, "Tiêu đề không được quá 50 kí tự. \n Vui lòng nhập lại");
+            txttitle.requestFocus();
+            txttitle.setText(null);
+            return;
+        }
+    }//GEN-LAST:event_txttitleActionPerformed
 
     /**
      * @param args the command line arguments

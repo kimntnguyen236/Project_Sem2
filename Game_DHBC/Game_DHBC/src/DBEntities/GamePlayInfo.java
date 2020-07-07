@@ -14,9 +14,9 @@ import java.util.Vector;
  */
 public class GamePlayInfo {
 
-    private String PlayerID;
-    private int quesId, PlayerScore, PlayerGem;
-    private Date PlayedDate;
+    public String PlayerID;
+    public int quesId, PlayerScore, PlayerGem;
+    public Date PlayedDate;
 
     public GamePlayInfo() {
     }

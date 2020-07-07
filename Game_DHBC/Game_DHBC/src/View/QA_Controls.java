@@ -11,6 +11,9 @@ import DBModels.QADAO;
 import java.io.File;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -28,24 +31,22 @@ import javax.swing.table.TableRowSorter;
  * @author LENOVO
  */
 public final class QA_Controls extends javax.swing.JFrame {
-TableRowSorter<TableModel> sorter;
-    DefaultTableModel model;
-    ArrayList<QA> ds;
+DefaultTableModel model1;
+    List<QA> ds = new ArrayList<>();
+    TableRowSorter<TableModel> sorter;
+    
+    String username = "", password = "";
+    static boolean Active= false;
+public void getAdmin(String user, String pass) {
+        username = user;
+        password = pass;
+    }
 
-//    private void initData() {
-//        //khoi tao model chua du lieu trong jTable vwQA
-//        model = (DefaultTableModel) vwQA.getModel();
-//
-//        //xoa het cac dong du lieu trong model
-//        model.setRowCount(0);
-//        
-//    }
     public void showQA() {
         ds = new QADAO().getList();
-          model.setRowCount(0);
-        for (QA item : ds) {
-            model.addRow(item.toVector());
-        }
+        ds.forEach((tem) -> {
+            model1.addRow(tem.toVector());
+        });
     }
 
     /**
@@ -53,7 +54,7 @@ TableRowSorter<TableModel> sorter;
      */
     public QA_Controls() {
         initComponents();
-        model = (DefaultTableModel) vwQA.getModel();
+        model1 = (DefaultTableModel) vwQA.getModel();
         //  initData();
         showQA();
     }
@@ -68,15 +69,10 @@ TableRowSorter<TableModel> sorter;
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLb_Close = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         lbSearch = new javax.swing.JButton();
         txtsearch = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         txtQuesCont = new javax.swing.JTextField();
-        txtScen = new javax.swing.JTextField();
-        lableAvaiable1 = new javax.swing.JLabel();
         lableName = new javax.swing.JLabel();
         lableAvaiable2 = new javax.swing.JLabel();
         txtGem = new javax.swing.JTextField();
@@ -99,30 +95,6 @@ TableRowSorter<TableModel> sorter;
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLb_Close.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLb_Close.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/close1_window_48px.png"))); // NOI18N
-        jLb_Close.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLb_CloseMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLb_CloseMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLb_CloseMouseExited(evt);
-            }
-        });
-        jPanel2.add(jLb_Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 0, 40, 40));
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setText("Q&A Control page");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 200, 40));
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 910, 40));
-
         lbSearch.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lbSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search_48px.png"))); // NOI18N
         lbSearch.setText("Search");
@@ -131,7 +103,7 @@ TableRowSorter<TableModel> sorter;
                 lbSearchActionPerformed(evt);
             }
         });
-        jPanel1.add(lbSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 90, 140, 40));
+        jPanel1.add(lbSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 100, 140, 40));
         jPanel1.add(txtsearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 510, 30));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
@@ -144,13 +116,6 @@ TableRowSorter<TableModel> sorter;
         txtQuesCont.setText("Click vào nút bên dưới");
         jPanel1.add(txtQuesCont, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, 200, 30));
 
-        txtScen.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jPanel1.add(txtScen, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 170, 123, -1));
-
-        lableAvaiable1.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        lableAvaiable1.setText("Scen");
-        jPanel1.add(lableAvaiable1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 180, -1, 30));
-
         lableName.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         lableName.setText("Question Content");
         jPanel1.add(lableName, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, -1, -1));
@@ -160,6 +125,7 @@ TableRowSorter<TableModel> sorter;
         jPanel1.add(lableAvaiable2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 220, -1, -1));
 
         txtGem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtGem.setText("5");
         jPanel1.add(txtGem, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 220, 123, -1));
 
         lablePrice.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
@@ -175,6 +141,11 @@ TableRowSorter<TableModel> sorter;
         jPanel1.add(jbtnAddQ, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, -1, -1));
 
         txtAns.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtAns.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAnsActionPerformed(evt);
+            }
+        });
         jPanel1.add(txtAns, new org.netbeans.lib.awtextra.AbsoluteConstraints(256, 273, 200, 30));
 
         lableAvaiable.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
@@ -182,6 +153,7 @@ TableRowSorter<TableModel> sorter;
         jPanel1.add(lableAvaiable, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 280, -1, -1));
 
         txtScore.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtScore.setText("40");
         jPanel1.add(txtScore, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 280, 123, -1));
 
         vwQA.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -190,14 +162,14 @@ TableRowSorter<TableModel> sorter;
 
             },
             new String [] {
-                "Question ID", "Q.Content", "Answer", "Scen", "Gem", "Score"
+                "Question ID", "Q.Content", "Answer", "Gem", "Score"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, false, true, true, true
+                false, true, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -261,35 +233,16 @@ TableRowSorter<TableModel> sorter;
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 910, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLb_CloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLb_CloseMouseClicked
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_jLb_CloseMouseClicked
-
-    private void jLb_CloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLb_CloseMouseEntered
-        // TODO add your handling code here:
-        ImageIcon close = new ImageIcon("./src/images/close_window_48px.png");
-        jLb_Close.setIcon(close);
-    }//GEN-LAST:event_jLb_CloseMouseEntered
-
-    private void jLb_CloseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLb_CloseMouseExited
-        // TODO add your handling code here:
-        ImageIcon close = new ImageIcon("./src/images/close1_window_48px.png");
-        jLb_Close.setIcon(close);
-    }//GEN-LAST:event_jLb_CloseMouseExited
 
     private void jbtnAddQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAddQActionPerformed
         JFileChooser fileChooser = new JFileChooser();
@@ -312,7 +265,7 @@ TableRowSorter<TableModel> sorter;
                     break;
                 }
             }
-String link="./src/QAImages/";
+String link="/";
             txtQuesCont.setText(link+add);
 
         } else {
@@ -325,11 +278,10 @@ String link="./src/QAImages/";
         int row = vwQA.getSelectedRow();
         //lay noi dung cua dong duoc chon gan cho o nhap lieu
 
-        txtQuesCont.setText(model.getValueAt(row, 1).toString());
-        txtAns.setText(model.getValueAt(row, 2).toString());
-        txtScen.setText(model.getValueAt(row, 3).toString());
-        txtGem.setText(model.getValueAt(row, 4).toString());
-        txtScore.setText(model.getValueAt(row, 5).toString());
+        txtQuesCont.setText(model1.getValueAt(row, 1).toString());
+        txtAns.setText(model1.getValueAt(row, 2).toString().toUpperCase().trim());
+        txtGem.setText(model1.getValueAt(row, 3).toString());
+        txtScore.setText(model1.getValueAt(row, 4).toString());
 
     }//GEN-LAST:event_vwQAMouseClicked
 
@@ -339,22 +291,45 @@ String link="./src/QAImages/";
         QA q = new QA();
 
         q.quesContent = txtQuesCont.getText().trim();
-        q.ansContent = txtAns.getText().trim();
-        q.ScenNo = Integer.parseInt(txtScen.getText().trim());
+        q.ansContent = txtAns.getText().toUpperCase().trim();
+        
+         Pattern Pn = Pattern.compile("^[a-zA-Z]{1,40}$");
+        Matcher mn = Pn.matcher(txtAns.getText().trim());
+        if (!mn.matches()) {
+            JOptionPane.showMessageDialog(this,  "Đáp án không được quá 40 kí tự, Không chứa số và kí tự đặc biệt. \n Vui lòng nhập lại");
+            txtAns.requestFocus();
+            txtAns.setText(null);
+            return;
+        }
+        
+//        if (txtAns.getText().length()>40){
+//            JOptionPane.showMessageDialog(this, );
+//            
+//            return;
+//        } 
         q.quesGem = Integer.parseInt(txtGem.getText().trim());
+        
         q.quesScore = Integer.parseInt(txtScore.getText().trim());
         QADAO.insert(q);
-
-        //dua bo du lieu nay vo model cua jTable vwQA
-        //  model.addRow(q.toVector());
+        JOptionPane.showMessageDialog(this, "Thêm mới thành công!");
+        //dua bo du lieu nay vo model1 cua jTable vwQA
+        //  model1.addRow(q.toVector());
         showQA();
     }//GEN-LAST:event_btnInsertActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        //cap nhat du lieu nhat vo dong hien hanh trong model
+        //cap nhat du lieu nhat vo dong hien hanh trong model1
         int row = vwQA.getSelectedRow();
         if (row < 0) {
             JOptionPane.showMessageDialog(null, "vui long chon dong cap nhat du lieu");
+            return;
+        }
+        Pattern Pn = Pattern.compile("^[a-zA-Z]{1,40}$");
+        Matcher mn = Pn.matcher(txtAns.getText().trim());
+        if (!mn.matches()) {
+            JOptionPane.showMessageDialog(this,  "Đáp án không được quá 40 kí tự, Không chứa số và kí tự đặc biệt. \n Vui lòng nhập lại");
+            txtAns.requestFocus();
+            txtAns.setText(null);
             return;
         }
 
@@ -362,16 +337,16 @@ String link="./src/QAImages/";
         QA q = new QA();
         q.quesId = qa.getquesId();
         q.quesContent = txtQuesCont.getText().trim();
-        q.ansContent = txtAns.getText().trim();
-        q.ScenNo = Integer.parseInt(txtScen.getText().trim());
+        q.ansContent = txtAns.getText().toUpperCase().trim();
         q.quesGem = Integer.parseInt(txtGem.getText().trim());
         q.quesScore = Integer.parseInt(txtScore.getText().trim());
-//        model.setValueAt(txtQuesCont.getText(), row, 1);
-//        model.setValueAt(txtAns.getText(), row, 2);
-//        model.setValueAt(txtScen.getText(), row, 3);
-//        model.setValueAt(txtGem.getText(), row, 4);
-//        model.setValueAt(txtScore.getText(), row, 5);
+//        model1.setValueAt(txtQuesCont.getText(), row, 1);
+//        model1.setValueAt(txtAns.getText(), row, 2);
+//        model1.setValueAt(txtScen.getText(), row, 3);
+//        model1.setValueAt(txtGem.getText(), row, 4);
+//        model1.setValueAt(txtScore.getText(), row, 5);
         QADAO.updateQA(q);
+         JOptionPane.showMessageDialog(this, "Cập nhật mới thành công!");
           showQA();
 
 
@@ -383,7 +358,7 @@ String link="./src/QAImages/";
             JOptionPane.showMessageDialog(null, "vui long chon dong muon xoa");
             return;
         }
-        model.removeRow(row);
+        model1.removeRow(row);
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
@@ -393,6 +368,7 @@ String link="./src/QAImages/";
         rgf.setLocationRelativeTo(null);
         rgf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.dispose();
+        rgf.getAdmin(username, password);
     }//GEN-LAST:event_btnCloseActionPerformed
 
     private void lbSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lbSearchActionPerformed
@@ -402,7 +378,7 @@ String link="./src/QAImages/";
             JOptionPane.showMessageDialog(this, "Vui lòng nhập từ khóa muốn tìm kiếm...");
             txtsearch.requestFocus();
         } else {
-            sorter = new TableRowSorter<TableModel>(model);
+            sorter = new TableRowSorter<TableModel>(model1);
 //            System.out.println();
             //  sorter.setRowFilter(RowFilter.regexFilter(txtSearch.getText(), 0));
         
@@ -411,6 +387,10 @@ String link="./src/QAImages/";
             vwQA.setRowSorter(sorter);
         }
     }//GEN-LAST:event_lbSearchActionPerformed
+
+    private void txtAnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAnsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -457,14 +437,10 @@ String link="./src/QAImages/";
     private javax.swing.JButton btnInsert;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLb_Close;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbtnAddQ;
     private javax.swing.JLabel lableAvaiable;
-    private javax.swing.JLabel lableAvaiable1;
     private javax.swing.JLabel lableAvaiable2;
     private javax.swing.JLabel lableName;
     private javax.swing.JLabel lablePrice;
@@ -472,7 +448,6 @@ String link="./src/QAImages/";
     private javax.swing.JTextField txtAns;
     private javax.swing.JTextField txtGem;
     private javax.swing.JTextField txtQuesCont;
-    private javax.swing.JTextField txtScen;
     private javax.swing.JTextField txtScore;
     private javax.swing.JTextField txtsearch;
     private javax.swing.JTable vwQA;

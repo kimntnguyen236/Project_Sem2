@@ -5,7 +5,8 @@
  */
 package View;
 
-
+import DBEntities.GamePlayInfo;
+import DBModels.GamePlayInfoDAO;
 import DBModels.PlayerDAO;
 import DBEntities.Player;
 import Sound.Sound;
@@ -24,6 +25,7 @@ public class Register_Players extends javax.swing.JFrame {
 
     ArrayList<Player> ds;
     Player player = new Player();
+    GamePlayInfo players = new GamePlayInfo();
     int M, D, Y;
  Sound sound = new Sound();
     /**
@@ -324,6 +326,7 @@ return false;
         player.Email = Email;
         player.DOB = DOB;
         player.Phone = Phone;
+        players.PlayerID = Name;
         ds = PlayerDAO.CheckRegister();
         for (Player item : ds) {
             if (item.getName().equals(Name)) {
@@ -348,6 +351,7 @@ return false;
 
         if (checkValid() && isOK == true) {
             PlayerDAO.insertRegister(player);
+            GamePlayInfoDAO.insertPlayerID(players);
             JOptionPane.showMessageDialog(this, "Thành công");
             Login rgf = new Login();
             rgf.setVisible(true);

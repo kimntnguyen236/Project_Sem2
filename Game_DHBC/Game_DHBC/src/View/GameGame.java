@@ -8,6 +8,7 @@ import DBEntities.GamePlayInfo;
 import DBEntities.Player;
 import DBModels.PlayerDAO;
 import DBModels.GamePlayInfoDAO;
+import static View.Admin_page.Active;
 import jaco.mp3.player.MP3Player;
 import java.awt.Color;
 import static java.awt.Component.CENTER_ALIGNMENT;
@@ -15,17 +16,21 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.*;
 import java.sql.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.*;
 import javax.swing.*;
 import javax.swing.border.Border;
 
 public final class GameGame extends JFrame {
 
+    static boolean Active = false;
     public static final String BGSONG = "./src/Sound/bgmusic.mp3";
     MP3Player bgSong = new MP3Player(new File(BGSONG));
 
@@ -44,8 +49,7 @@ public final class GameGame extends JFrame {
     public static final String FAIL = "./src/Sound/fail.mp3";
     MP3Player fail = new MP3Player(new File(FAIL));
 
-    HighScore Highscore = new HighScore();
-    Profile profile = new Profile();
+    //HighScore Highscore = new HighScore();
     CuaHangGem store = new CuaHangGem();
     Settings settings = new Settings();
     Home home = new Home();
@@ -64,7 +68,7 @@ public final class GameGame extends JFrame {
     JLabel Profile = new JLabel();
     JLabel Scen = new JLabel();
     JLabel Store = new JLabel();
-    
+
     JLabel highscore = new JLabel();
     JLabel Music = new JLabel();
     JLabel Sound = new JLabel();
@@ -99,14 +103,19 @@ public final class GameGame extends JFrame {
     public int checkGY = 0;
     int count = 1;
     String user, avt;
-    String pass;
+    String password;
     int PScore, PGem, PScen;
-    Date PDate;
+    Date PlDate;
     int gh;
-    String txt, AVATAR;
+    public String txt, AVATAR,phone,dob,email;
     int DIEM;
     int KIMCUONG;
     int MANCHOI;
+    ArrayList<Player> ds;
+    boolean checkdk = false;
+    boolean checkmusic = true;
+  boolean checksound = true;
+    
 
     public void setupTong() {
 
@@ -150,35 +159,36 @@ public final class GameGame extends JFrame {
         setUpViewDapAn();
         setUpViewChonDapAn();
         setUpViewAnser();
-        hienCauDo();
+
         checkWinhover();
         setViewGoiy();
         onclickgoiy();
         setUpBackButton();
         setUpGem();
-        setupProfile();
+        // setupProfile();
         setUpScen();
         setUpSound();
         setUpMusic();
         setUpInfo();
         playMusic();
-        setUpSound();
+       
         setUpStore();
         setUpHighScore();
-        getPlayer(user, pass, PScore, PGem, PScen, PDate, avt);
+
     }
 
-    public void getPlayer(String user, String pass, int PScore, int PGem, int PScen, Date PDate, String avt) {
+    public void getPlayer(String user, String pass, int PScore, int PGem, int PScen, Date PDate, String avt, String phone, String dob, String email) {
         txtName.setText(user);
         numDiem.setText(String.valueOf(PScore));
         numScen.setText(String.valueOf(PScen));
         numGem.setText(String.valueOf(PGem));
         numScenn.setText(String.valueOf(PScen));
+        password = pass;
         txt = user;
         DIEM = PScore;
         KIMCUONG = PGem;
         MANCHOI = PScen;
-        vt = PScen-2;
+        vt = PScen - 2;
     }
 
     public void playMusic() {
@@ -188,7 +198,7 @@ public final class GameGame extends JFrame {
     public void setUpHighScore() {
         highscore.removeAll();
         ImageIcon image = new ImageIcon("./src/images/icons8_leaderboard_80px_1.png");
-        highscore.setBounds(370, 835, 80,80);
+        highscore.setBounds(370, 835, 80, 80);
 
         highscore.setIcon(image);
         highscore.setOpaque(false);
@@ -198,14 +208,15 @@ public final class GameGame extends JFrame {
 
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                Highscore.setVisible(true);
+                // Highscore.setVisible(true);
             }
         });
     }
+
     public void setUpStore() {
         Store.removeAll();
         ImageIcon image = new ImageIcon("./src/images/icons8_Online_Store_80px_1.png");
-        Store.setBounds(280, 835, 80,80);
+        Store.setBounds(280, 835, 80, 80);
 
         Store.setIcon(image);
         Store.setOpaque(false);
@@ -235,7 +246,13 @@ public final class GameGame extends JFrame {
 
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
+                if(checksound){
                 Sound.setIcon(image2);
+                checksound=false;
+                }else{
+                       Sound.setIcon(image1);
+                checksound=true;
+                }
             }
         });
     }
@@ -243,7 +260,7 @@ public final class GameGame extends JFrame {
     public void setUpMusic() {
         Music.removeAll();
         ImageIcon image = new ImageIcon("./src/images/icons8_music_80px.png");
-        Music.setBounds(100, 835, 80,80);
+        Music.setBounds(100, 835, 80, 80);
 
         Music.setIcon(image);
         Music.setOpaque(false);
@@ -255,8 +272,18 @@ public final class GameGame extends JFrame {
 
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                Music.setIcon(image2);
-                bgSong.pause();
+                if (checkmusic) {
+                    Music.setIcon(image2);
+                    bgSong.pause();
+                    checkmusic = false;
+                  //  return;
+                }else{
+                     Music.setIcon(image1);
+                    bgSong.play();
+                    checkmusic = true;
+                   // return;
+                }
+
             }
         });
     }
@@ -264,7 +291,7 @@ public final class GameGame extends JFrame {
     public void setUpInfo() {
         Info.removeAll();
         ImageIcon image = new ImageIcon("./src/images/icons8_more_80px.png");
-        Info.setBounds(190, 835, 80,80);
+        Info.setBounds(190, 835, 80, 80);
 
         Info.setIcon(image);
         //Info.setOpaque(false);
@@ -275,9 +302,9 @@ public final class GameGame extends JFrame {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 settings.setVisible(true);
-                
-                System.out.println("e" +e.toString());
-                
+
+                System.out.println("e" + e.toString());
+
             }
         });
     }
@@ -306,6 +333,21 @@ public final class GameGame extends JFrame {
 
     }
 
+    public void setPicture(JLabel lable, String filename) {
+        try {
+            BufferedImage image = ImageIO.read(new File(filename));
+            ImageIcon icon = new ImageIcon(image.getScaledInstance(75, 75, image.SCALE_SMOOTH));
+            lable.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Picture_List.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void getcheck(boolean check) {
+        checkdk = check;
+    }
+
     public void setupProfile() {
         Profile.removeAll();
         ImageIcon image = new ImageIcon("./src/images/S1-copy.png");
@@ -314,12 +356,18 @@ public final class GameGame extends JFrame {
         Profile.setIcon(image);
         Profile.setOpaque(false);
         Profile.setLayout(null);
-//        JLabel imgProfile = new JLabel();
-        imgProfile.removeAll();
-        ImageIcon img = new ImageIcon("./src/images/icons8_female_profile_80px.png");
-        imgProfile.setBounds(3, 0, 90, 90);
-
-        imgProfile.setIcon(img);
+        JLabel imgProfile = new JLabel();
+        // imgProfile.removeAll();
+        // ImageIcon img = new ImageIcon("./src/images/icons8_female_profile_80px.png");
+        imgProfile.setBounds(8, 0, 90, 90);
+        ds = PlayerDAO.picture();
+        for (Player item : ds) {
+            if (item.getName().equals(txt)) {
+                String s = item.getPicture();
+                setPicture(imgProfile, s);
+                break;
+            }
+        }
         imgProfile.setOpaque(false);
         imgProfile.setLayout(null);
         Profile.add(imgProfile);
@@ -330,13 +378,23 @@ public final class GameGame extends JFrame {
         txtName.setFont(new java.awt.Font("Arial", Font.BOLD, 23));
         txtName.setHorizontalAlignment((int) CENTER_ALIGNMENT);
         Profile.add(txtName);
-        
+
         Profile.addMouseListener(new java.awt.event.MouseAdapter() {
             ImageIcon image1 = new ImageIcon("./src/images/S1-copy.png");
 
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
+                checkdk = true;
+                if (checkdk) {
+                    setVisible(false);
+                }
+                Profile profile = new Profile();
                 profile.setVisible(true);
+                profile.getprofile(txt, password);
+                profile.Showprofile();
+                profile.viewAvata();
+                
+
             }
         });
 
@@ -366,7 +424,7 @@ public final class GameGame extends JFrame {
         playerinfo.quesId = PScen;
         playerinfo.PlayerGem = PGem;
         playerinfo.PlayerScore = PScore;
-        playerinfo.PlayedDate = PDate;
+        playerinfo.PlayedDate = PlDate;
         ImageIcon image = new ImageIcon("./src/images/icons8_undo_80px_2.png");
         close.setBounds(0, 0, 80, 80);
         close.setIcon(image);
@@ -479,7 +537,12 @@ public final class GameGame extends JFrame {
 
     @SuppressWarnings("unchecked")
     public void hienCauDo() {
+        setupProfile();
         arr = new QADAO().getList();
+        if (checkdk) {
+            setVisible(false);
+
+        }
         setVisible(false);
         vt++;
         danan = arr.get(vt).ansContent;
@@ -505,6 +568,7 @@ public final class GameGame extends JFrame {
         hienChu2(cautraloi);
 
         setVisible(true);
+
         Onclick1();
         Onclick2();
         checkWin();
@@ -514,7 +578,8 @@ public final class GameGame extends JFrame {
         try {
             viewAnh.removeAll();
             Image image = null;
-            image = ImageIO.read(new File(path));// ImageIO.read(url);
+//            image = ImageIO.read(new File(path));// ImageIO.read(url);
+image = ImageIO.read(getClass().getResourceAsStream(path));// ImageIO.read(url);
             JLabel label = new JLabel(new ImageIcon(fitimage(image, 720, 500)));
 
             Border border = BorderFactory.createLineBorder(Color.white, 1);
@@ -612,7 +677,12 @@ public final class GameGame extends JFrame {
                     @Override
                     public void mouseClicked(java.awt.event.MouseEvent e) {
                         super.mouseClicked(e);
-                        click.play();
+                     if(checksound){
+                         click.play();
+                     }else{
+                         click.pause();
+                     }
+                        
                         if (!ctrl[0].getText().equals(" ") && index < danan.length()) {
                             String s = ctrl[0].getText();
                             for (int i = 0; i < danan.length(); i++) {
@@ -637,7 +707,11 @@ public final class GameGame extends JFrame {
                     @Override
                     public void mouseClicked(java.awt.event.MouseEvent e) {
                         super.mouseClicked(e);
-                        click.play(); //To change body of generated methods, choose Tools | Templates.
+                          if(checksound){
+                         click.play();
+                     }else{
+                         click.pause();
+                     }
 
                         if (!ctrl[1].getText().equals(" ") && index < danan.length()) {
                             String s = ctrl[1].getText();
@@ -4871,7 +4945,16 @@ public final class GameGame extends JFrame {
             java.util.logging.Logger.getLogger(GameGame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         java.awt.EventQueue.invokeLater(() -> {
-            new GameGame().setVisible(true);
+                               if(Active){
+                     new GameGame().setVisible(true); 
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,"Bạn cần phải đăng nhập trước khi mở trang này!!!");
+                    new Login().setVisible(true);
+                }
+
+          
+
         });
         Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {

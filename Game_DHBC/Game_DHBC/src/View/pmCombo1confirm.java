@@ -5,9 +5,13 @@
  */
 package View;
 
+import DBEntities.GamePlayInfo;
+import DBModels.GamePlayInfoDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,16 +19,15 @@ import javax.swing.JFrame;
  */
 public class pmCombo1confirm extends javax.swing.JFrame implements ActionListener {
 
+    ArrayList<GamePlayInfo> gameinfo;
+
     /**
      * Creates new form pmCombo1confirm
      */
- 
- 
-
     public pmCombo1confirm() {
         initComponents();
         this.btnTouchPM.addActionListener(this);
-      //  this.btnOK.addActionListener(null);
+        //  this.btnOK.addActionListener(null);
     }
 
     /**
@@ -119,6 +122,11 @@ public class pmCombo1confirm extends javax.swing.JFrame implements ActionListene
 
         btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_undo_80px_2.png"))); // NOI18N
         btnBack.setOpaque(false);
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, -1, -1));
 
         jButton5.setBackground(new java.awt.Color(255, 0, 51));
@@ -144,7 +152,7 @@ public class pmCombo1confirm extends javax.swing.JFrame implements ActionListene
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    
+
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         this.setVisible(true);
         this.pack();
@@ -152,18 +160,35 @@ public class pmCombo1confirm extends javax.swing.JFrame implements ActionListene
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
-   
+
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
-//        cuahang = new CuaHangGem();
-//        setVisible(true);
-//        index += 1;
-//        if (index == 1) {
-//            int count = Integer.parseInt(this.txtGem.getText());
-//            count += 70;
-//            this.txtGem.setText(String.valueOf(count));
+        gameinfo = new GamePlayInfoDAO().getList();
+        int gem = 0;
+        String name;
+        for (GamePlayInfo item : gameinfo) {
+            if (item.getPlayerID().equals("AAA")){
+                gem = item.getPlayerGem();
+                name = item.PlayerID;
+                GamePlayInfoDAO.updateGem(gem + 30,name);
+                JOptionPane.showMessageDialog(this, "Tài Khoản của bạn đã được nạp 30 Gem thành công.");
+                CuaHangGem CHG = new CuaHangGem();
+                CHG.showgem();
+                CHG.setVisible(true);
+                this.dispose();
+                break;
+            }
+        }
+//        GamePlayInfo gameif = new GamePlayInfo();
+////        gameif.PlayerID = "a";
+////        gameif.PlayerGem =
+
     }//GEN-LAST:event_btnOKActionPerformed
-  //  }
-     
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
+    //  }
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -189,7 +214,13 @@ public class pmCombo1confirm extends javax.swing.JFrame implements ActionListene
         }
         //</editor-fold>
         //</editor-fold>
-     
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
         java.awt.EventQueue.invokeLater(() -> {
             new pmCombo1confirm().setVisible(true);
         });

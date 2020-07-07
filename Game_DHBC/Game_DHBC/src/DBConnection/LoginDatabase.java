@@ -153,7 +153,7 @@ public class LoginDatabase extends javax.swing.JFrame {
         btnSave.setBackground(new java.awt.Color(0, 153, 102));
         btnSave.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnSave.setForeground(new java.awt.Color(255, 255, 255));
-        btnSave.setText("kết Nối");
+        btnSave.setText("Kết Nối");
         btnSave.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnSaveMouseEntered(evt);

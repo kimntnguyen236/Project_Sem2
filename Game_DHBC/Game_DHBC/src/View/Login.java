@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame {
 
-    public String username, password, avatar;
+    public String username, password, avatar,phone,dob,email;
     public int Scen, Gem, Score;
     public Date PDate;
     ArrayList<PlayerInfo> ds;
@@ -103,7 +103,7 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel1.add(bntlogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 390, 410, 50));
 
-        txtusername.setText("ThanhAn123");
+        txtusername.setText("Admin");
         jPanel1.add(txtusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 260, 40));
         jPanel1.add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 320, 260, 40));
 
@@ -189,7 +189,8 @@ public class Login extends javax.swing.JFrame {
         ds = new PlayerInfoDAO().getlogin();
         for (PlayerInfo item : ds) {
             if (username.equals(item.getName()) && password.equals(item.getPassword())) {
-                GameGame game = new GameGame();
+                Home game = new Home();
+//                GameGame game = new GameGame();
                 game.setVisible(true);
 //                 game.pack();
 //                 game.setLocationRelativeTo(null);
@@ -200,8 +201,11 @@ public class Login extends javax.swing.JFrame {
                 Scen = item.getquesId();
                 PDate = item.getPlayedDate();
                 avatar = item.getAvt();
-                game.getPlayer(username, password, Score, Gem, Scen, PDate, avatar);
-                game.hienCauDo();
+                phone = item.getPhone();
+                dob = item.getDOB();
+                email = item.getEmail();
+                game.getPlayer(username, password, Score, Gem, Scen, PDate, avatar,phone,dob,email);
+//                game.hienCauDo();
                 isOK = true;
                 break;
             }
@@ -231,8 +235,8 @@ public class Login extends javax.swing.JFrame {
 
     private void RegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegisterMouseClicked
         // TODO add your handling code here:
-//        Register_Players rgt = new Register_Players();
-//        rgt.setVisible(true);
+        Register_Players rgt = new Register_Players();
+        rgt.setVisible(true);
     }//GEN-LAST:event_RegisterMouseClicked
 
     /**

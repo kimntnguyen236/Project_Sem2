@@ -40,7 +40,7 @@ public final class Admin_page extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLb_Questions = new javax.swing.JLabel();
         jLbAdmin = new javax.swing.JLabel();
-        jLb_HelpSuprot = new javax.swing.JLabel();
+        jLb_HelpSupport = new javax.swing.JLabel();
         jLb_GamePlay_info = new javax.swing.JLabel();
         jLb_Players = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -58,7 +58,7 @@ public final class Admin_page extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(0, 102, 102));
+        jPanel2.setBackground(new java.awt.Color(0, 153, 153));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setBackground(new java.awt.Color(102, 204, 255));
@@ -109,23 +109,26 @@ public final class Admin_page extends javax.swing.JFrame {
         });
         jPanel2.add(jLbAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 80, 230, 160));
 
-        jLb_HelpSuprot.setBackground(new java.awt.Color(0, 153, 153));
-        jLb_HelpSuprot.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLb_HelpSuprot.setForeground(new java.awt.Color(255, 255, 255));
-        jLb_HelpSuprot.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLb_HelpSuprot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BG_hp.png"))); // NOI18N
-        jLb_HelpSuprot.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLb_HelpSuprot.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLb_HelpSuprot.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jLb_HelpSuprot.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLb_HelpSupport.setBackground(new java.awt.Color(0, 153, 153));
+        jLb_HelpSupport.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jLb_HelpSupport.setForeground(new java.awt.Color(255, 255, 255));
+        jLb_HelpSupport.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLb_HelpSupport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BG_hp.png"))); // NOI18N
+        jLb_HelpSupport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLb_HelpSupport.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLb_HelpSupport.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jLb_HelpSupport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLb_HelpSupportMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLb_HelpSuprotMouseEntered(evt);
+                jLb_HelpSupportMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLb_HelpSuprotMouseExited(evt);
+                jLb_HelpSupportMouseExited(evt);
             }
         });
-        jPanel2.add(jLb_HelpSuprot, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 80, 230, 160));
+        jPanel2.add(jLb_HelpSupport, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 80, 230, 160));
 
         jLb_GamePlay_info.setBackground(new java.awt.Color(0, 153, 153));
         jLb_GamePlay_info.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
@@ -231,7 +234,7 @@ public final class Admin_page extends javax.swing.JFrame {
         txtAdmin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtAdmin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         txtAdmin.setOpaque(true);
-        jPanel3.add(txtAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, 170, 60));
+        jPanel3.add(txtAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 170, 60));
 
         jLb_Close.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLb_Close.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/close1_window_48px.png"))); // NOI18N
@@ -355,13 +358,14 @@ public void getAdmin(String us, String pw) {
 
     private void jLb_GamePlay_infoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLb_GamePlay_infoMouseClicked
         // TODO add your handling code here:
-//        sound.playMusic("./src/Sound/click2.wav");
-//        GamePlay_Info rgf = new GamePlay_Info();
-//        rgf.setVisible(true);
-//        rgf.pack();
-//        rgf.setLocationRelativeTo(null);
-//        rgf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        this.dispose();
+        sound.playMusic("./src/Sound/click2.wav");
+        GamePlay_Info rgf = new GamePlay_Info();
+        rgf.setVisible(true);
+        rgf.pack();
+        rgf.setLocationRelativeTo(null);
+        rgf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.dispose();
+        rgf.getAdmin(user, pass);
     }//GEN-LAST:event_jLb_GamePlay_infoMouseClicked
 
     private void jLb_QuestionsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLb_QuestionsMouseExited
@@ -385,6 +389,7 @@ public void getAdmin(String us, String pw) {
         rgf.setLocationRelativeTo(null);
         rgf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.dispose();
+        rgf.getAdmin(user, pass);
     }//GEN-LAST:event_jLb_QuestionsMouseClicked
 
     private void jLbAdminMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLbAdminMouseExited
@@ -410,16 +415,16 @@ public void getAdmin(String us, String pw) {
         rgf.getAdmin(user, pass);
     }//GEN-LAST:event_jLbAdminMouseClicked
 
-    private void jLb_HelpSuprotMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLb_HelpSuprotMouseExited
+    private void jLb_HelpSupportMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLb_HelpSupportMouseExited
         // TODO add your handling code here:
         ImageIcon close = new ImageIcon("./src/images/BG_hp.png");
-        jLb_HelpSuprot.setIcon(close);
-    }//GEN-LAST:event_jLb_HelpSuprotMouseExited
+        jLb_HelpSupport.setIcon(close);
+    }//GEN-LAST:event_jLb_HelpSupportMouseExited
 
-    private void jLb_HelpSuprotMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLb_HelpSuprotMouseEntered
+    private void jLb_HelpSupportMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLb_HelpSupportMouseEntered
         ImageIcon close = new ImageIcon("./src/images/Bg_HSP2.png");
-        jLb_HelpSuprot.setIcon(close);
-    }//GEN-LAST:event_jLb_HelpSuprotMouseEntered
+        jLb_HelpSupport.setIcon(close);
+    }//GEN-LAST:event_jLb_HelpSupportMouseEntered
 
     private void jLb_PlayersMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLb_PlayersMouseExited
         // TODO add your handling code here:
@@ -469,6 +474,17 @@ public void getAdmin(String us, String pw) {
           }
         EditAdmin.setVisible(true);
     }//GEN-LAST:event_bntEditMouseClicked
+
+    private void jLb_HelpSupportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLb_HelpSupportMouseClicked
+        sound.playMusic("./src/Sound/click2.wav");
+        HelpSupport_Admin helpSupport = new HelpSupport_Admin();
+        helpSupport.setVisible(true);
+        helpSupport.pack();
+        helpSupport.setLocationRelativeTo(null);
+        helpSupport.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.dispose();
+        helpSupport.getAdmin(user, pass);
+    }//GEN-LAST:event_jLb_HelpSupportMouseClicked
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -490,6 +506,7 @@ public void getAdmin(String us, String pw) {
             public void run() {
                       if(Active){
                    new Admin_page().setVisible(true); 
+                   new Login().setVisible(false);
                 }
                 else{
                     JOptionPane.showMessageDialog(null,"Bạn cần phải đăng nhập trước khi mở trang này!!!");
@@ -509,7 +526,7 @@ public void getAdmin(String us, String pw) {
     private javax.swing.JLabel jLbAdmin;
     private javax.swing.JLabel jLb_Close;
     private javax.swing.JLabel jLb_GamePlay_info;
-    private javax.swing.JLabel jLb_HelpSuprot;
+    private javax.swing.JLabel jLb_HelpSupport;
     private javax.swing.JLabel jLb_Players;
     private javax.swing.JLabel jLb_Questions;
     private javax.swing.JPanel jPanel1;

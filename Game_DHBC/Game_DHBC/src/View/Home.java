@@ -5,10 +5,13 @@
  */
 package View;
 
+import DBEntities.PlayerInfo;
 import jaco.mp3.player.MP3Player;
 import java.awt.Color;
 import java.awt.GraphicsEnvironment;
 import java.io.File;
+import java.sql.Date;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,7 +20,26 @@ import javax.swing.JPanel;
  *
  * @author ThienKim
  */
-public class Home extends javax.swing.JFrame {
+public final class Home extends javax.swing.JFrame {
+    ArrayList<PlayerInfo> ds;
+    String username, password, avatar,phone,dob,email;
+    int Scen, Gem, Score;
+    Date PlDate;
+    
+     static boolean Active=false;
+    
+    public void getPlayer(String user, String pass, int PScore, int PGem, int PScen, Date PDate, String avt,String PPhone,String PEmail,String PDOB) {
+        username = user;
+        password = pass;
+        avatar = avt;
+        Scen = PScen;
+        Gem = PGem;
+        Score = PScore;
+        PlDate = PDate;
+        phone = PPhone;
+        email = PEmail;
+        dob = PDOB;
+    }
     Notice note = new Notice();
 //    HighScore highScore = new HighScore();
     Settings setting = new Settings();
@@ -251,9 +273,14 @@ public class Home extends javax.swing.JFrame {
 //    Login lg = new Login();
     private void btnplayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnplayMouseClicked
         // TODO add your handling code here:
-        GameGame game = new GameGame();
-        game.setVisible(true);
-//       lg.setVisible(true);
+        GameGame rgf = new GameGame();
+        rgf.setVisible(true);
+//        rgf.pack();
+//        rgf.setLocationRelativeTo(null);
+//        rgf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.dispose();
+        rgf.getPlayer(username, password, Score, Gem, Scen, PlDate, avatar, phone, email, dob);
+        rgf.hienCauDo();
     }//GEN-LAST:event_btnplayMouseClicked
 
     private void btnplayMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnplayMouseEntered

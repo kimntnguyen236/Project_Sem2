@@ -127,37 +127,37 @@ public final class HelpSupport_Admin_Detail extends javax.swing.JDialog {
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Hình Ảnh");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 160, 100, 30));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 250, 100, 30));
 
         lbtitle.setBackground(new java.awt.Color(255, 255, 255));
         lbtitle.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lbtitle.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         lbtitle.setOpaque(true);
-        jPanel1.add(lbtitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 540, 40));
+        jPanel1.add(lbtitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 570, 40));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 153, 0));
         jLabel3.setText("THÔNG TIN PHẢN HỒI CHI TIẾT");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, 370, 40));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 400, 40));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(51, 51, 51));
         jLabel4.setText("Tài khoản:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, 100, 30));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, 100, 30));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(51, 51, 51));
         jLabel5.setText("Tiêu Đề:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 80, 30));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 80, 30));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(51, 51, 51));
         jLabel6.setText("Nội Dung:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 100, 30));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 100, 30));
 
         lbimage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 153)));
         lbimage.setOpaque(true);
-        jPanel1.add(lbimage, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 200, 230, 210));
+        jPanel1.add(lbimage, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 290, 230, 210));
 
         jButton1.setBackground(new java.awt.Color(51, 153, 0));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
@@ -167,21 +167,21 @@ public final class HelpSupport_Admin_Detail extends javax.swing.JDialog {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 440, 230, 40));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 530, 230, 40));
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/strop2.png"))); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_undo_80px_2.png"))); // NOI18N
         jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel8MouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 490, 110, 110));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 90, 80));
 
         lbfrom.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lbfrom.setForeground(new java.awt.Color(0, 102, 102));
         lbfrom.setText("d");
-        jPanel1.add(lbfrom, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, 210, 30));
+        jPanel1.add(lbfrom, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, 210, 30));
 
         txtconten.setColumns(20);
         txtconten.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
@@ -196,10 +196,10 @@ public final class HelpSupport_Admin_Detail extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(txtconten);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 690, 280));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 690, 280));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/NenXanhLa2.jpg"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1030, 610));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1030, 730));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -209,7 +209,7 @@ public final class HelpSupport_Admin_Detail extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -291,6 +291,7 @@ public final class HelpSupport_Admin_Detail extends javax.swing.JDialog {
                     }
                 });
                 dialog.setVisible(true);
+                new Login().setVisible(false);
             }
         });
     }

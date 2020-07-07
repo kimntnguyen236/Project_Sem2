@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 public class STore extends javax.swing.JDialog {
  ArrayList<Store> store;
  ArrayList<GamePlayInfo> gameplayinfo;
- public String Username="a";
+ public String Username="AAA";
     public STore(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();

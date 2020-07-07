@@ -70,19 +70,19 @@ public class Edit_Admin extends javax.swing.JDialog {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("Email:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 140, 40));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 140, 40));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel7.setText("Ngày Tháng Năm Sinh:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 190, 40));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 190, 40));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel8.setText("Số Điện Thoại:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 120, 40));
-        jPanel1.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 370, 40));
-        jPanel1.add(txtPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 240, 370, 40));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, 120, 40));
+        jPanel1.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 370, 40));
+        jPanel1.add(txtPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 370, 40));
 
         bntcancel.setBackground(new java.awt.Color(51, 51, 51));
         bntcancel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -102,7 +102,7 @@ public class Edit_Admin extends javax.swing.JDialog {
                 bntcancelActionPerformed(evt);
             }
         });
-        jPanel1.add(bntcancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 330, 160, 50));
+        jPanel1.add(bntcancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 380, 160, 50));
 
         bntEdit.setBackground(new java.awt.Color(51, 51, 51));
         bntEdit.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -122,7 +122,7 @@ public class Edit_Admin extends javax.swing.JDialog {
                 bntEditActionPerformed(evt);
             }
         });
-        jPanel1.add(bntEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 170, 50));
+        jPanel1.add(bntEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 380, 170, 50));
 
         bntreset.setBackground(new java.awt.Color(51, 51, 51));
         bntreset.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -142,32 +142,36 @@ public class Edit_Admin extends javax.swing.JDialog {
                 bntresetActionPerformed(evt);
             }
         });
-        jPanel1.add(bntreset, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 330, 160, 50));
+        jPanel1.add(bntreset, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 380, 160, 50));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 51));
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("ĐỔI THÔNG TIN");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 390, 60));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 390, 60));
 
         cmbDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
-        jPanel1.add(cmbDay, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, 100, 40));
+        jPanel1.add(cmbDay, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, 100, 40));
 
         cmbMo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
-        jPanel1.add(cmbMo, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, 90, 40));
+        jPanel1.add(cmbMo, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 200, 90, 40));
 
         cmbYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "1980", "1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010" }));
-        jPanel1.add(cmbYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 180, 100, 40));
+        jPanel1.add(cmbYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 200, 100, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 727, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -359,6 +363,7 @@ public class Edit_Admin extends javax.swing.JDialog {
                     }
                 });
                 dialog.setVisible(true);
+                new Login().setVisible(false);
             }
         });
     }
